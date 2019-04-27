@@ -1,5 +1,7 @@
 import csv
-from django.core.management.base import BaseCommand, CommandError
+
+from django.core.management.base import BaseCommand
+
 from discounts.models import SerialNumber
 
 
@@ -8,7 +10,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument('path', type=str)
-        parser.add_argument('--d', help='Delete previous serial numbers', action="store_true")
+        parser.add_argument(
+            '--d', help='Delete previous serial numbers', action="store_true"
+        )
 
     def handle(self, *args, **options):
         path = options['path']
@@ -22,4 +26,6 @@ class Command(BaseCommand):
                     serial=row[0],
                 )
                 if created:
-                    self.stdout.write(self.style.SUCCESS('serial number added "%s"' % row[0]))
+                    self.stdout.write(
+                        self.style.SUCCESS('serial number added "%s"' % row[0])
+                    )

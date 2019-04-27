@@ -86,6 +86,5 @@ class SerialNumberViewTests(TestCase):
 
     def test_serial_field_required(self):
         resp = self.client.post('/api/v1/serialnumbers/discount/')
-        print("RR", resp.data)
         assert resp.status_code == 400
         assert "This field is required." in resp.data['serial']
